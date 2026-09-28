@@ -11,6 +11,9 @@ $labels = [
     'completed' => 'Completed',
     'cancelled' => 'Cancelled',
     'captured_value' => 'Captured value',
+    'vehicles' => 'Vehicles',
+    'drivers_online' => 'Drivers online',
+    'packages' => 'Published packages',
 ];
 ?>
 <div class="container-fluid kaar-booking kaar-booking--admin">
@@ -45,4 +48,5 @@ $labels = [
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-between align-items-center mt-4"><h2>Live driver locations</h2><a class="btn btn-outline-primary" href="<?php echo Route::_('index.php?option=com_kaarbooking&view=livetrips'); ?>">Open live map</a></div><div class="table-responsive"><table class="table table-striped"><thead><tr><th>Driver</th><th>Ride</th><th>Status</th><th>Last coordinates</th><th>Reported</th></tr></thead><tbody><?php foreach($this->liveDrivers as $driver): ?><tr><td><?php echo htmlspecialchars($driver['display_name'],ENT_QUOTES,'UTF-8'); ?></td><td><?php echo htmlspecialchars($driver['reference']??'—',ENT_QUOTES,'UTF-8'); ?></td><td><?php echo htmlspecialchars($driver['dispatch_status']??'online',ENT_QUOTES,'UTF-8'); ?></td><td><?php echo $driver['latitude']!==null?htmlspecialchars($driver['latitude'].', '.$driver['longitude'],ENT_QUOTES,'UTF-8'):'No report'; ?></td><td><?php echo htmlspecialchars($driver['recorded_at']??'—',ENT_QUOTES,'UTF-8'); ?></td></tr><?php endforeach; ?><?php if(!$this->liveDrivers): ?><tr><td colspan="5">No online drivers.</td></tr><?php endif; ?></tbody></table></div>
 </div>

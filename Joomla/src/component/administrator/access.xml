@@ -10,6 +10,9 @@
         <action name="kaarbooking.booking.allocate" title="COM_KAARBOOKING_ACTION_ALLOCATE" />
         <action name="kaarbooking.kyc.verify" title="COM_KAARBOOKING_ACTION_KYC_VERIFY" />
         <action name="kaarbooking.kyc.preview" title="COM_KAARBOOKING_ACTION_KYC_PREVIEW" />
+        <action name="kaarbooking.vehicle.inspect" title="COM_KAARBOOKING_ACTION_VEHICLE_INSPECT" />
+        <action name="kaarbooking.document.submit" title="COM_KAARBOOKING_ACTION_DOCUMENT_SUBMIT" />
+        <action name="kaarbooking.document.manage_types" title="COM_KAARBOOKING_ACTION_DOCUMENT_TYPES" />
         <action name="kaarbooking.analytics.view" title="COM_KAARBOOKING_ACTION_ANALYTICS" />
     </section>
 </access>

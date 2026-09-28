@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" client="site" method="upgrade">
-    <name>MOD_KAARBOOKING_BOOKING_FORM</name><version>0.1.0</version><license>GPL-2.0-or-later</license>
+    <name>MOD_KAARBOOKING_BOOKING_FORM</name><version>0.4.0</version><license>GPL-2.0-or-later</license>
     <description>MOD_KAARBOOKING_BOOKING_FORM_DESC</description>
     <namespace path="src">KaarBooking\Module\BookingForm</namespace>
     <files><folder module="mod_kaarbooking_booking_form">services</folder><folder>src</folder><folder>tmpl</folder><folder>language</folder></files>
@@ -14,3 +14,5 @@
         <field name="alignment" type="list" default="inherit" label="Alignment"><option value="inherit">Inherit</option><option value="start">Start</option><option value="center">Centre</option><option value="end">End</option></field>
     </fieldset></fields></config>
 </extension>
+
+

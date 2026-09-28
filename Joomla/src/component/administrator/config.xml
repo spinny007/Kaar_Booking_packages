@@ -7,12 +7,25 @@
         <field name="with_driver" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_WITH_DRIVER"><option value="1">JYES</option><option value="0">JNO</option></field>
         <field name="self_drive" type="radio" default="0" label="COM_KAARBOOKING_CONFIG_SELF_DRIVE"><option value="1">JYES</option><option value="0">JNO</option></field>
     </fieldset>
+    <fieldset name="maps" label="COM_KAARBOOKING_CONFIG_MAPS">
+        <field name="maps_provider" type="list" default="google" label="COM_KAARBOOKING_CONFIG_MAP_PROVIDER"><option value="google">Google Maps</option><option value="none">No map</option></field>
+        <field name="google_maps_browser_key" type="password" filter="raw" label="COM_KAARBOOKING_CONFIG_GOOGLE_MAPS_KEY" description="COM_KAARBOOKING_CONFIG_GOOGLE_MAPS_KEY_DESC" />
+        <field name="live_location_stale_minutes" type="number" default="5" min="1" max="60" label="COM_KAARBOOKING_CONFIG_LOCATION_STALE" />
+    </fieldset>
     <fieldset name="privacy" label="COM_KAARBOOKING_CONFIG_PRIVACY">
         <field name="kyc_preview_minutes" type="number" default="5" min="1" max="15" label="COM_KAARBOOKING_CONFIG_KYC_PREVIEW_MINUTES" />
         <field name="kyc_delete_after_verify" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_KYC_DELETE"><option value="1">JYES</option><option value="0">JNO</option></field>
         <field name="private_storage_path" type="text" default="" label="COM_KAARBOOKING_CONFIG_PRIVATE_STORAGE" description="COM_KAARBOOKING_CONFIG_PRIVATE_STORAGE_DESC" />
     </fieldset>
     <fieldset name="api" label="COM_KAARBOOKING_CONFIG_API">
+        <field name="api_enabled" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_API_ENABLED"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="api_otp_login_enabled" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_API_OTP_LOGIN"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="api_booking_enabled" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_API_BOOKING"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="api_realtime_enabled" type="radio" default="0" label="COM_KAARBOOKING_CONFIG_API_REALTIME"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="api_kyc_enabled" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_API_KYC"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="api_rate_limit_per_minute" type="number" default="60" min="10" max="600" label="COM_KAARBOOKING_CONFIG_API_RATE_LIMIT" />
+        <field name="api_location_retention_days" type="number" default="30" min="1" max="365" label="COM_KAARBOOKING_CONFIG_LOCATION_RETENTION" />
+        <field name="driver_location_interval_seconds" type="number" default="120" min="15" max="600" step="15" label="COM_KAARBOOKING_CONFIG_LOCATION_INTERVAL" description="COM_KAARBOOKING_CONFIG_LOCATION_INTERVAL_DESC" />
         <field name="api_otp_minutes" type="number" default="10" min="3" max="20" label="COM_KAARBOOKING_CONFIG_OTP_MINUTES" />
         <field name="api_access_minutes" type="number" default="15" min="5" max="60" label="COM_KAARBOOKING_CONFIG_ACCESS_MINUTES" />
         <field name="api_refresh_days" type="number" default="30" min="1" max="90" label="COM_KAARBOOKING_CONFIG_REFRESH_DAYS" />

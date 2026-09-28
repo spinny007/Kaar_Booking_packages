@@ -2,11 +2,12 @@
 <extension type="component" method="upgrade">
     <name>COM_KAARBOOKING</name>
     <element>com_kaarbooking</element>
-    <version>0.1.0</version>
+    <version>0.4.0</version>
     <creationDate>2026-09</creationDate>
     <author>Kaar Booking</author>
     <license>GNU General Public License version 2 or later</license>
     <description>COM_KAARBOOKING_XML_DESCRIPTION</description>
+    <scriptfile>script.php</scriptfile>
     <namespace path="src">KaarBooking\Component\KaarBooking</namespace>
     <install>
         <sql><file driver="mysql" charset="utf8mb4">sql/install.mysql.utf8.sql</file></sql>
@@ -14,6 +15,11 @@
     <uninstall>
         <sql><file driver="mysql" charset="utf8mb4">sql/uninstall.mysql.utf8.sql</file></sql>
     </uninstall>
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
     <files folder="site">
         <folder>src</folder>
         <folder>tmpl</folder>
@@ -34,7 +40,11 @@
         <submenu>
             <menu link="option=com_kaarbooking&amp;view=dashboard">COM_KAARBOOKING_MENU_DASHBOARD</menu>
             <menu link="option=com_kaarbooking&amp;view=bookings">COM_KAARBOOKING_MENU_BOOKINGS</menu>
+            <menu link="option=com_kaarbooking&amp;view=livetrips">COM_KAARBOOKING_MENU_LIVE_TRIPS</menu>
             <menu link="option=com_kaarbooking&amp;view=vehicles">COM_KAARBOOKING_MENU_VEHICLES</menu>
+            <menu link="option=com_kaarbooking&amp;view=inspections">COM_KAARBOOKING_MENU_INSPECTIONS</menu>
+            <menu link="option=com_kaarbooking&amp;view=drivers">COM_KAARBOOKING_MENU_DRIVERS</menu>
+            <menu link="option=com_kaarbooking&amp;view=companies">COM_KAARBOOKING_MENU_COMPANIES</menu>
             <menu link="option=com_kaarbooking&amp;view=packages">COM_KAARBOOKING_MENU_PACKAGES</menu>
             <menu link="option=com_kaarbooking&amp;view=kyc">COM_KAARBOOKING_MENU_KYC</menu>
         </submenu>
@@ -55,3 +65,5 @@
         <language tag="en-GB">en-GB/com_kaarbooking.ini</language>
     </languages>
 </extension>
+
+

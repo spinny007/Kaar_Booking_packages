@@ -1,0 +1,1 @@
+-- Version marker: release 0.3.0 adds administrator workflows and configuration without schema changes.

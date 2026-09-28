@@ -1,0 +1,14 @@
+<?php
+namespace KaarBooking\Component\KaarBooking\Administrator\Controller;
+defined('_JEXEC') or die;
+use Joomla\CMS\Factory;use Joomla\CMS\MVC\Controller\BaseController;use Joomla\CMS\Router\Route;use Joomla\CMS\Session\Session;
+final class CompaniesController extends BaseController
+{
+    public function save():void
+    {
+        Session::checkToken('post') or jexit('Invalid token');$user=$this->app->getIdentity();if(!$user->authorise('core.create','com_kaarbooking'))throw new \RuntimeException('Not authorised',403);
+        $name=trim($this->input->post->getString('name'));$address=trim($this->input->post->getString('address'));$org=$this->input->post->getCmd('organisation_type');if($name===''||$address===''||!in_array($org,['touring_company','travel_agency','transport_union','individual_operator'],true))throw new \DomainException('Valid organisation name, type and address are required.');
+        $logoPath=null;$logo=$this->input->files->get('logo',null,'array');if(is_array($logo)&&($logo['error']??UPLOAD_ERR_NO_FILE)!==UPLOAD_ERR_NO_FILE){if(($logo['error']??UPLOAD_ERR_NO_FILE)!==UPLOAD_ERR_OK||(int)$logo['size']<1||(int)$logo['size']>2097152)throw new \DomainException('Logo must be an image no larger than 2 MB.');$mime=(new \finfo(FILEINFO_MIME_TYPE))->file((string)$logo['tmp_name']);$ext=['image/jpeg'=>'jpg','image/png'=>'png','image/webp'=>'webp'];if(!isset($ext[$mime])||@getimagesize((string)$logo['tmp_name'])===false)throw new \DomainException('Logo must be a valid JPEG, PNG or WebP image.');$dir=JPATH_ROOT.'/media/com_kaarbooking/companies';if(!is_dir($dir)&&!mkdir($dir,0755,true)&&!is_dir($dir))throw new \RuntimeException('Logo directory is unavailable.');$file=bin2hex(random_bytes(20)).'.'.$ext[$mime];if(!move_uploaded_file((string)$logo['tmp_name'],$dir.'/'.$file))throw new \RuntimeException('Logo could not be stored.');$logoPath='media/com_kaarbooking/companies/'.$file;}
+        $registration=mb_substr(trim($this->input->post->getString('registration_number')),0,100);$db=Factory::getContainer()->get(\Joomla\Database\DatabaseInterface::class);$row=(object)['name'=>mb_substr($name,0,190),'organisation_type'=>$org,'legal_type'=>mb_substr(trim($this->input->post->getString('legal_type')),0,64),'registration_number'=>$registration!==''?$registration:null,'owner_name'=>mb_substr(trim($this->input->post->getString('owner_name')),0,190),'email'=>mb_substr(trim($this->input->post->getString('email')),0,190),'phone'=>mb_substr(trim($this->input->post->getString('phone')),0,40),'address'=>$address,'logo_path'=>$logoPath,'status'=>'active','created_by'=>(int)$user->id,'created'=>Factory::getDate()->toSql(),'modified'=>null];try{$db->insertObject('#__kaar_companies',$row,'id');}catch(\Throwable $e){if($logoPath)@unlink(JPATH_ROOT.'/'.$logoPath);throw $e;}$this->app->enqueueMessage('Organisation added.','success');$this->setRedirect(Route::_('index.php?option=com_kaarbooking&view=companies',false));
+    }
+}

@@ -21,10 +21,11 @@ try {
     New-ExtensionZip (Join-Path $source 'plugins\api-authentication\kaarbooking') 'plg_api-authentication_kaarbooking.zip'
     New-ExtensionZip (Join-Path $source 'plugins\task\kaarbooking') 'plg_task_kaarbooking.zip'
     Copy-Item -LiteralPath (Join-Path $source 'pkg_kaarbooking.xml') -Destination (Join-Path $packageStage 'pkg_kaarbooking.xml')
-    $packageZip = Join-Path $OutputDirectory 'pkg_kaarbooking_0.1.0.zip'
+    Copy-Item -LiteralPath (Join-Path $source 'language') -Destination (Join-Path $packageStage 'language') -Recurse
+    $packageZip = Join-Path $OutputDirectory 'pkg_kaarbooking_0.4.0.zip'
     Compress-Archive -Path (Join-Path $packageStage '*') -DestinationPath $packageZip -CompressionLevel Optimal -Force
 
-    $wpZip = Join-Path $OutputDirectory 'plg_wordpress_kaar_booking_0.1.0.zip'
+    $wpZip = Join-Path $OutputDirectory 'plg_wordpress_kaar_booking_0.4.0.zip'
     Compress-Archive -Path (Join-Path (Split-Path $PSScriptRoot -Parent) 'WordPress\kaar-booking') -DestinationPath $wpZip -CompressionLevel Optimal -Force
     Get-Item -LiteralPath $packageZip, $wpZip | Select-Object FullName, Length, LastWriteTime
 }

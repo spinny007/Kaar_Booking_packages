@@ -10,6 +10,7 @@ final class HtmlView extends BaseHtmlView
 {
     public array $metrics = [];
     public array $queue = [];
+    public array $liveDrivers = [];
 
     public function display($tpl = null): void
     {
@@ -26,6 +27,7 @@ final class HtmlView extends BaseHtmlView
             ->where($db->quoteName('status') . ' IN (' . implode(',', array_map([$db, 'quote'], ['pending_admin_review', 'paid_pending_confirmation'])) . ')')
             ->order($db->quoteName('created') . ' ASC');
         $this->queue = $db->setQuery($query, 0, 20)->loadAssocList() ?: [];
+        $latest=$db->getQuery(true)->select('driver_id, MAX(id) location_id')->from('#__kaar_driver_locations')->group('driver_id');$query=$db->getQuery(true)->select(['d.display_name','l.latitude','l.longitude','l.recorded_at','r.dispatch_status','b.reference'])->from('#__kaar_drivers d')->join('LEFT','('.$latest.') x ON x.driver_id=d.id')->join('LEFT','#__kaar_driver_locations l ON l.id=x.location_id')->join('LEFT','#__kaar_rides r ON r.id=l.ride_id')->join('LEFT','#__kaar_bookings b ON b.id=r.booking_id')->where("d.online_state='online'")->order('l.recorded_at DESC');$this->liveDrivers=$db->setQuery($query,0,10)->loadAssocList()?:[];
         parent::display($tpl);
     }
 
@@ -40,6 +42,7 @@ final class HtmlView extends BaseHtmlView
         $query = $db->getQuery(true)->select('COALESCE(SUM(' . $db->quoteName('total_amount') . '), 0)')
             ->from($db->quoteName('#__kaar_bookings'))->where($db->quoteName('payment_status') . ' = ' . $db->quote('paid'));
         $metrics['captured_value'] = (float) $db->setQuery($query)->loadResult();
+        $metrics['vehicles']=(int)$db->setQuery('SELECT COUNT(*) FROM #__kaar_vehicles')->loadResult();$metrics['drivers_online']=(int)$db->setQuery("SELECT COUNT(*) FROM #__kaar_drivers WHERE online_state='online'")->loadResult();$metrics['packages']=(int)$db->setQuery('SELECT COUNT(*) FROM #__kaar_packages WHERE state=1')->loadResult();
         return $metrics;
     }
 }

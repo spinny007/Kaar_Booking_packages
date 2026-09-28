@@ -2,11 +2,15 @@
 <extension type="package" method="upgrade">
     <name>PKG_KAARBOOKING</name>
     <packagename>kaarbooking</packagename>
-    <version>0.1.0</version>
+    <version>0.4.0</version>
     <creationDate>2026-09</creationDate>
     <author>Kaar Booking</author>
     <license>GNU General Public License version 2 or later</license>
     <description>PKG_KAARBOOKING_DESCRIPTION</description>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.pkg_kaarbooking.ini</language>
+        <language tag="en-GB">en-GB/en-GB.pkg_kaarbooking.sys.ini</language>
+    </languages>
     <files>
         <file type="component" id="com_kaarbooking">com_kaarbooking.zip</file>
         <file type="module" id="mod_kaarbooking_booking_form" client="site">mod_kaarbooking_booking_form.zip</file>
@@ -16,3 +20,5 @@
         <file type="plugin" id="kaarbooking" group="task">plg_task_kaarbooking.zip</file>
     </files>
 </extension>
+
+

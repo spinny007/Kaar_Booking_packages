@@ -8,18 +8,20 @@ function Require-Path([string]$Path) { if (-not (Test-Path -LiteralPath $Path)) 
 
 $required = @(
     'src\pkg_kaarbooking.xml','src\component\kaarbooking.xml','src\component\administrator\sql\install.mysql.utf8.sql',
+    'src\component\script.php','src\component\administrator\sql\updates\mysql\0.2.0.sql','src\component\administrator\sql\updates\mysql\0.3.0.sql','src\component\administrator\sql\updates\mysql\0.4.0.sql','src\language\en-GB\en-GB.pkg_kaarbooking.sys.ini',
     'src\modules\mod_kaarbooking_booking_form\mod_kaarbooking_booking_form.xml',
     'src\modules\mod_kaarbooking_package_grid\mod_kaarbooking_package_grid.xml',
     'src\plugins\api-authentication\kaarbooking\kaarbooking.xml','src\plugins\webservices\kaarbooking\kaarbooking.xml',
     'src\plugins\task\kaarbooking\kaarbooking.xml','API_SECURITY.md','PRODUCT_PLAN.md'
 )
 foreach ($item in $required) { Require-Path (Join-Path $root $item) }
+foreach ($item in @('src\component\administrator\src\View\Livetrips\HtmlView.php','src\component\administrator\src\View\Inspections\HtmlView.php','src\component\administrator\src\Controller\DriversController.php','src\component\administrator\src\Controller\PackagesController.php')) { Require-Path (Join-Path $root $item) }
 
 $xmlFiles = Get-ChildItem -LiteralPath (Join-Path $root 'src') -Recurse -File -Filter *.xml
 foreach ($file in $xmlFiles) { try { [xml](Get-Content -LiteralPath $file.FullName -Raw) | Out-Null } catch { $errors.Add("Invalid XML $($file.FullName): $($_.Exception.Message)") } }
 
 $sql = Get-Content -LiteralPath (Join-Path $root 'src\component\administrator\sql\install.mysql.utf8.sql') -Raw
-foreach ($table in @('vehicle_types','vehicles','drivers','customers','otp_challenges','api_sessions','documents','packages','package_items','departures','quotes','bookings','booking_resources','booking_history','payments','rides','driver_locations','notifications','app_layouts','audit_log')) {
+foreach ($table in @('vehicle_types','companies','vehicles','drivers','customers','otp_challenges','api_sessions','document_types','documents','vehicle_inspections','media','packages','package_items','departures','quotes','bookings','booking_resources','booking_history','payments','rides','driver_locations','notifications','app_layouts','audit_log')) {
     if ($sql -notmatch [regex]::Escape("#__kaar_$table")) { $errors.Add("Schema is missing #__kaar_$table") }
 }
 foreach ($column in @('access_hash','refresh_hash','otp_hash')) { if ($sql -notmatch [regex]::Escape($column)) { $errors.Add("Schema is missing hashed secret column $column") } }
@@ -28,6 +30,8 @@ if ($sql -match '(?i)`(access_token|refresh_token|otp)`') { $errors.Add('Schema 
 $routeFile = Get-Content -LiteralPath (Join-Path $root 'src\plugins\webservices\kaarbooking\src\Extension\KaarBooking.php') -Raw
 foreach ($route in @('auth/challenge','auth/verify','auth/refresh','auth/logout','vehicle-types','packages','bookings','rides')) { if ($routeFile -notmatch [regex]::Escape($route)) { $errors.Add("API route missing: $route") } }
 if ($routeFile -match '(?i)kyc[^\r\n]*(download|export)') { $errors.Add('A customer KYC download/export API route is forbidden.') }
+$configFile=Get-Content -LiteralPath (Join-Path $root 'src\component\administrator\config.xml') -Raw
+foreach($field in @('api_enabled','api_otp_login_enabled','api_booking_enabled','api_realtime_enabled','api_kyc_enabled','driver_location_interval_seconds','google_maps_browser_key')){if($configFile -notmatch ('name="'+[regex]::Escape($field)+'"')){$errors.Add("Component option missing: $field")}}
 
 $phpFiles = @(Get-ChildItem -LiteralPath (Join-Path $root 'src') -Recurse -File -Filter *.php) + @(Get-ChildItem -LiteralPath (Join-Path $repo 'WordPress') -Recurse -File -Filter *.php)
 $phpCommand = Get-Command $PhpPath -ErrorAction SilentlyContinue
@@ -36,7 +40,7 @@ if ($phpCommand) {
 } else { $warnings.Add("PHP executable '$PhpPath' was not found; PHP lint and PHPUnit were not run. Pass -PhpPath with its full path.") }
 
 if (-not $SkipBuild -and $errors.Count -eq 0) { & (Join-Path $root 'build.ps1') | Out-Null }
-$package = Join-Path $root 'build\pkg_kaarbooking_0.1.0.zip'
+$package = Join-Path $root 'build\pkg_kaarbooking_0.4.0.zip'
 if (-not $SkipBuild) {
     Require-Path $package
     if (Test-Path -LiteralPath $package) {

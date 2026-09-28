@@ -1,5 +1,9 @@
 <?php
-namespace KaarBooking\Component\KaarBooking\Administrator\View\Packages;
-defined('_JEXEC') or die;
-use Joomla\CMS\Factory; use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-final class HtmlView extends BaseHtmlView { public array $items=[]; public function display($tpl=null):void {if(!Factory::getApplication()->getIdentity()->authorise('core.manage','com_kaarbooking'))throw new \RuntimeException('Not authorised',403);$db=Factory::getContainer()->get(\Joomla\Database\DatabaseInterface::class);$q=$db->getQuery(true)->select('*')->from($db->quoteName('#__kaar_packages'))->order('ordering,title');$this->items=$db->setQuery($q)->loadAssocList()?:[];parent::display($tpl);} }
+namespace KaarBooking\Component\KaarBooking\Administrator\View\Packages;defined('_JEXEC') or die;use Joomla\CMS\Factory;use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+final class HtmlView extends BaseHtmlView{public array $items=[],$types=[],$stats=[],$filters=[];public function display($tpl=null):void{if(!Factory::getApplication()->getIdentity()->authorise('core.manage','com_kaarbooking'))throw new \RuntimeException('Not authorised',403);$app=Factory::getApplication();$db=Factory::getContainer()->get(\Joomla\Database\DatabaseInterface::class);$this->filters=['search'=>trim((string)$app->input->getString('filter_search','')),'mode'=>$app->input->getCmd('filter_mode'),'state'=>(string)$app->input->getString('filter_state','')];$q=$db->getQuery(true)->select(['p.*','t.title AS vehicle_type','m.path AS image_path'])->from('#__kaar_packages p')->join('LEFT','#__kaar_vehicle_types t ON t.id=p.vehicle_type_id')->join('LEFT',"#__kaar_media m ON m.subject_type='package' AND m.subject_id=p.id AND m.ordering=0");if($this->filters['search']!=='')$q->where('p.title LIKE '.$db->quote('%'.$this->filters['search'].'%'));if($this->filters['mode']!=='')$q->where('p.booking_mode='.$db->quote($this->filters['mode']));if($this->filters['state']!=='')$q->where('p.state='.(int)$this->filters['state']);$q->order('p.ordering,p.title');$this->items=$db->setQuery($q,0,500)->loadAssocList()?:[];$this->types=$db->setQuery('SELECT id,title FROM #__kaar_vehicle_types WHERE state=1 ORDER BY ordering,title')->loadAssocList()?:[];$this->stats=['total'=>(int)$db->setQuery('SELECT COUNT(*) FROM #__kaar_packages')->loadResult(),'published'=>(int)$db->setQuery('SELECT COUNT(*) FROM #__kaar_packages WHERE state=1')->loadResult(),'whole_vehicle'=>(int)$db->setQuery("SELECT COUNT(*) FROM #__kaar_packages WHERE booking_mode='whole_vehicle'")->loadResult(),'per_seat'=>(int)$db->setQuery("SELECT COUNT(*) FROM #__kaar_packages WHERE booking_mode='per_seat'")->loadResult()];parent::display($tpl);}}
+
+
+
+
+
+

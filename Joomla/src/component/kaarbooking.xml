@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+    <name>COM_KAARBOOKING</name>
+    <element>com_kaarbooking</element>
+    <version>0.1.0</version>
+    <creationDate>2026-09</creationDate>
+    <author>Kaar Booking</author>
+    <license>GNU General Public License version 2 or later</license>
+    <description>COM_KAARBOOKING_XML_DESCRIPTION</description>
+    <namespace path="src">KaarBooking\Component\KaarBooking</namespace>
+    <install>
+        <sql><file driver="mysql" charset="utf8mb4">sql/install.mysql.utf8.sql</file></sql>
+    </install>
+    <uninstall>
+        <sql><file driver="mysql" charset="utf8mb4">sql/uninstall.mysql.utf8.sql</file></sql>
+    </uninstall>
+    <files folder="site">
+        <folder>src</folder>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+    <api>
+        <files folder="api">
+            <folder>src</folder>
+        </files>
+    </api>
+    <media destination="com_kaarbooking" folder="media">
+        <filename>joomla.asset.json</filename>
+        <folder>css</folder>
+        <folder>js</folder>
+    </media>
+    <administration>
+        <menu view="dashboard" img="class:calendar">COM_KAARBOOKING</menu>
+        <submenu>
+            <menu link="option=com_kaarbooking&amp;view=dashboard">COM_KAARBOOKING_MENU_DASHBOARD</menu>
+            <menu link="option=com_kaarbooking&amp;view=bookings">COM_KAARBOOKING_MENU_BOOKINGS</menu>
+            <menu link="option=com_kaarbooking&amp;view=vehicles">COM_KAARBOOKING_MENU_VEHICLES</menu>
+            <menu link="option=com_kaarbooking&amp;view=packages">COM_KAARBOOKING_MENU_PACKAGES</menu>
+            <menu link="option=com_kaarbooking&amp;view=kyc">COM_KAARBOOKING_MENU_KYC</menu>
+        </submenu>
+        <files folder="administrator">
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+            <folder>sql</folder>
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+        </files>
+        <languages folder="administrator/language">
+            <language tag="en-GB">en-GB/com_kaarbooking.ini</language>
+            <language tag="en-GB">en-GB/com_kaarbooking.sys.ini</language>
+        </languages>
+    </administration>
+    <languages folder="site/language">
+        <language tag="en-GB">en-GB/com_kaarbooking.ini</language>
+    </languages>
+</extension>

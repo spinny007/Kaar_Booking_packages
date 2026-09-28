@@ -1,0 +1,1 @@
+-- Data is intentionally retained on uninstall. Use the explicit privacy-aware purge tool before removing production data.

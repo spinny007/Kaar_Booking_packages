@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_KAARBOOKING_MENU_BOOKING_TITLE"><message>COM_KAARBOOKING_MENU_BOOKING_DESC</message></layout>
+    <fields name="params"><fieldset name="basic"><field name="default_service" type="list" default="outstation_one_way" label="COM_KAARBOOKING_DEFAULT_SERVICE"><option value="outstation_one_way">COM_KAARBOOKING_ONE_WAY</option><option value="outstation_round_trip">COM_KAARBOOKING_ROUND_TRIP</option><option value="airport">COM_KAARBOOKING_AIRPORT</option><option value="hourly">COM_KAARBOOKING_HOURLY</option><option value="half_day">COM_KAARBOOKING_HALF_DAY</option><option value="full_day">COM_KAARBOOKING_FULL_DAY</option></field></fieldset></fields>
+</metadata>

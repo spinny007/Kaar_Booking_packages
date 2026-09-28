@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_kaarbooking",
+  "version": "0.1.0",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {"name":"com_kaarbooking.site","type":"style","uri":"com_kaarbooking/site.css","version":"0.1.0"},
+    {"name":"com_kaarbooking.booking","type":"script","uri":"com_kaarbooking/booking.js","attributes":{"type":"module"},"version":"0.1.0"}
+  ]
+}

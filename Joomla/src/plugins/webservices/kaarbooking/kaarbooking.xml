@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="webservices" method="upgrade">
+    <name>PLG_WEBSERVICES_KAARBOOKING</name><version>0.1.0</version><license>GPL-2.0-or-later</license>
+    <description>PLG_WEBSERVICES_KAARBOOKING_DESC</description><namespace path="src">KaarBooking\Plugin\Webservices\KaarBooking</namespace>
+    <files><folder plugin="kaarbooking">services</folder><folder>src</folder><folder>language</folder></files>
+</extension>

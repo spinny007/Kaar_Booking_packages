@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset name="booking" label="COM_KAARBOOKING_CONFIG_BOOKING">
+        <field name="advance_days" type="number" default="365" min="1" max="1095" label="COM_KAARBOOKING_CONFIG_ADVANCE_DAYS" />
+        <field name="hold_minutes" type="number" default="15" min="0" max="120" label="COM_KAARBOOKING_CONFIG_HOLD_MINUTES" />
+        <field name="currency" type="text" default="INR" label="COM_KAARBOOKING_CONFIG_CURRENCY" />
+        <field name="with_driver" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_WITH_DRIVER"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="self_drive" type="radio" default="0" label="COM_KAARBOOKING_CONFIG_SELF_DRIVE"><option value="1">JYES</option><option value="0">JNO</option></field>
+    </fieldset>
+    <fieldset name="privacy" label="COM_KAARBOOKING_CONFIG_PRIVACY">
+        <field name="kyc_preview_minutes" type="number" default="5" min="1" max="15" label="COM_KAARBOOKING_CONFIG_KYC_PREVIEW_MINUTES" />
+        <field name="kyc_delete_after_verify" type="radio" default="1" label="COM_KAARBOOKING_CONFIG_KYC_DELETE"><option value="1">JYES</option><option value="0">JNO</option></field>
+        <field name="private_storage_path" type="text" default="" label="COM_KAARBOOKING_CONFIG_PRIVATE_STORAGE" description="COM_KAARBOOKING_CONFIG_PRIVATE_STORAGE_DESC" />
+    </fieldset>
+    <fieldset name="api" label="COM_KAARBOOKING_CONFIG_API">
+        <field name="api_otp_minutes" type="number" default="10" min="3" max="20" label="COM_KAARBOOKING_CONFIG_OTP_MINUTES" />
+        <field name="api_access_minutes" type="number" default="15" min="5" max="60" label="COM_KAARBOOKING_CONFIG_ACCESS_MINUTES" />
+        <field name="api_refresh_days" type="number" default="30" min="1" max="90" label="COM_KAARBOOKING_CONFIG_REFRESH_DAYS" />
+        <field name="api_max_devices" type="number" default="5" min="1" max="10" label="COM_KAARBOOKING_CONFIG_MAX_DEVICES" />
+    </fieldset>
+</config>

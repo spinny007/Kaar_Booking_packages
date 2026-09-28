@@ -1,0 +1,32 @@
+.kaar-booking {
+  --kaar-accent: var(--mpb-accent, #1268e8);
+  --kaar-surface: #fff;
+  --kaar-text: #172033;
+  --kaar-muted: #5d6678;
+  --kaar-border: #dfe3ea;
+  --kaar-radius: .9rem;
+  color: var(--kaar-text);
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+.kaar-booking *, .kaar-booking *::before, .kaar-booking *::after { box-sizing: inherit; }
+.kaar-booking__form { display: grid; gap: 1rem; }
+.kaar-booking__services { display: flex; flex-wrap: wrap; gap: .5rem 1rem; border: 0; padding: 0; margin: 0; }
+.kaar-booking__services label { display: inline-flex; align-items: center; gap: .35rem; cursor: pointer; }
+.kaar-booking__fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1px; background: var(--kaar-border); border: 1px solid var(--kaar-border); border-radius: var(--kaar-radius); overflow: hidden; }
+.kaar-booking__fields label { display: grid; gap: .35rem; padding: .8rem 1rem; background: var(--kaar-surface); color: var(--kaar-muted); min-inline-size: 0; }
+.kaar-booking input, .kaar-booking select { inline-size: 100%; min-inline-size: 0; border: 0; background: transparent; color: var(--kaar-text); font: inherit; font-weight: 650; padding: .25rem 0; }
+.kaar-booking input:focus-visible, .kaar-booking select:focus-visible, .kaar-booking a:focus-visible, .kaar-booking button:focus-visible, .kaar-booking summary:focus-visible { outline: 3px solid color-mix(in srgb, var(--kaar-accent) 45%, transparent); outline-offset: 3px; }
+.kaar-booking__swap { align-self: center; justify-self: center; border: 1px solid var(--kaar-border); background: var(--kaar-surface); border-radius: 50%; inline-size: 2.75rem; block-size: 2.75rem; z-index: 1; margin-inline: -1.4rem; cursor: pointer; }
+.kaar-booking__primary { display: inline-flex; justify-content: center; align-items: center; min-block-size: 3rem; padding: .75rem 1.5rem; border: 0; border-radius: 999px; background: var(--kaar-accent); color: #fff; font: inherit; font-weight: 750; text-decoration: none; cursor: pointer; }
+.kaar-booking__notice { color: var(--kaar-muted); margin: 0; }
+.kaar-booking__package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.kaar-booking__package-card { display: flex; flex-direction: column; min-inline-size: 0; border: 1px solid var(--kaar-border); border-radius: var(--kaar-radius); background: var(--kaar-surface); overflow: hidden; }
+.kaar-booking__package-body { display: grid; gap: .65rem; padding: 1rem; flex: 1; }
+.kaar-booking__package-body > * { margin: 0; }
+.kaar-booking__package-card > .kaar-booking__primary { margin: 0 1rem 1rem; }
+.kaar-booking__price { font-size: 1.2rem; font-weight: 750; }
+@media (max-width: 48rem) { .kaar-booking__swap { margin: 0; } }
+@media (prefers-reduced-motion: reduce) { .kaar-booking *, .kaar-booking *::before, .kaar-booking *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }

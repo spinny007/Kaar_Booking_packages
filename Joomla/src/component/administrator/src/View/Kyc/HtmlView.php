@@ -1,0 +1,5 @@
+<?php
+namespace KaarBooking\Component\KaarBooking\Administrator\View\Kyc;
+defined('_JEXEC') or die;
+use Joomla\CMS\Factory; use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+final class HtmlView extends BaseHtmlView { public array $items=[]; public function display($tpl=null):void {$user=Factory::getApplication()->getIdentity();if(!$user->authorise('kaarbooking.kyc.verify','com_kaarbooking'))throw new \RuntimeException('Not authorised',403);$db=Factory::getContainer()->get(\Joomla\Database\DatabaseInterface::class);$q=$db->getQuery(true)->select(['d.id','d.subject_id','d.document_type','d.masked_reference','d.status','d.created','d.verified_at','u.name','u.email'])->from($db->quoteName('#__kaar_documents','d'))->join('LEFT',$db->quoteName('#__kaar_customers','c').' ON '.$db->quoteName('c.id').'='.$db->quoteName('d.subject_id'))->join('LEFT',$db->quoteName('#__users','u').' ON '.$db->quoteName('u.id').'='.$db->quoteName('c.user_id'))->where($db->quoteName('d.subject_type').'='.$db->quote('customer'))->order('d.created DESC');$this->items=$db->setQuery($q)->loadAssocList()?:[];parent::display($tpl);} }
